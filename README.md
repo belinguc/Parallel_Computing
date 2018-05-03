@@ -1,3 +1,29 @@
 # Parallel_Computing, NTU Singapore (C++, OpenMP, MPI, CUDA)
 
-This course provides students with an understanding of the concepts and techniques of parallel computing. This includes an understanding of the interaction between hardware and software, the power and limitations of parallelism and its benefits and challenges. Examples are used throughout the course to illustrate concepts and issues in parallel computing. 1. Introduction and Motivation. Motivation for Parallelism: parallel computing, speed up, Moore's law, grand challenge problems, trends. 2. Parallel Computing Systems. Flynn's taxonomy, shared memory architectures, distributed memory architectures, clusters, networks of workstations, heterogeneous architectures. 3. Performance Analysis. Performance Measures: speed up, efficiency, cost. Amdahl's law, Gustafson's law. Parallel Computational Models: PRAM, BSP, Cluster cost model. 4. Shared Memory Parallelism. Threads. OpenMP Compiler Directives. Partitioning Techniques. Examples: Mandelbrot set, Monte Carlo methods, N-body problem, Barnes Hut algorithm. 5. Distributed Memory Parallelism. Message Passing Libraries: processes, point-to-point and collective communication. MPI message passing routines. Data Partitioning. Examples: bucket sort, numerical integration. Divide-and-Conquer. Examples: merge sort, adaptive quadrature. Pipelining: Type 1, 2 and 3 pipelines. Examples: sum of sequence, insertion sort, prime number generation, back substitution. 6. Synchronous Computations. Data Parallel Programming, Global and Local Synchronization. Examples: solving linear equations, cellular automata. 7. Scheduling and Load Balancing. Scheduling. Static Load Balancing. Dynamic Load Balancing. Example: Moore's Algorithm. Performance Tools. 8. Applications. Sorting Algorithms. Examples: rank sort, compare and exchange, bubble sort, quicksort, bitonic mergesort. Numerical Algorithms. Examples: matrix algorithms, solving linear equations, Gaussian elimination; Jacobi iteration.
+The shortest path problem is about finding a path between two nodes in a graph such that the path cost is minimized. One example of this problem could be finding the fastest route from one city to another by car, train or airplane.
+The Floyd-Warshall algorithm is an algorithm that solves this problem. It works for weighted graphs with positive or negative weights but not for graphs with negative cycles.
+
+It works by comparing all possible paths between all vertex pairs in the graph. A version of the algorithm implemented in the C language can be seen in the figure below.
+
+for (int k = 0; k < N; k++) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) 
+        {
+            int i0 = i*N + j;
+            int i1 = i*N + k;
+            int i2 = k*N + j;
+            if (mat[i1] != -1 && mat[i2] != -1)
+            {
+                int sum = (mat[i1] + mat[i2]);
+                if (mat[i0] == -1 && sum < mat[i0])
+                    mat[i0] = sum;
+            }
+        }
+    }
+}
+
+The notations used in this figure; "k", "i", "j", "N" and "mat[...]" will be used throughout the report.
+
+For each k all of the current values (mat[i*N,j]) of the matrix is compared to the sum of two other values in the matrix: mat[k*N,j] + mat[i*N,k]. Once the outer loop has run N times all paths between all vertex pairs have been compared.
+
+The purpose of the lab was to parallelize this algorithm with the use of MPI, OpenMP and CUDA.
