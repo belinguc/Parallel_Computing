@@ -5,6 +5,7 @@ The Floyd-Warshall algorithm is an algorithm that solves this problem. It works 
 
 It works by comparing all possible paths between all vertex pairs in the graph. A version of the algorithm implemented in the C language can be seen in the figure below.
 
+```c
 for (int k = 0; k < N; k++) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) 
@@ -21,6 +22,7 @@ for (int k = 0; k < N; k++) {
         }
     }
 }
+```
 
 The notations used in this figure; "k", "i", "j", "N" and "mat[...]" will be used throughout the report.
 
